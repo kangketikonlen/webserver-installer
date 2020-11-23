@@ -10,5 +10,10 @@ else
 	sleep 3
 	chmod +x scripts/debian/*.sh
 	./scripts/first.sh
-	exit $?
+	if [[ $? == 0 ]]; then
+		./scripts/auto_apache.sh
+	fi
+	if [[ $? == 0 ]]; then
+		./scripts/auto_mariadb.sh
+	fi
 fi

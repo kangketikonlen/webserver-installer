@@ -3,31 +3,23 @@ echo -e "\e[32m✅ assign new domain...\e[0m"
 read -p "Masukan domain: " server_name
 read -p "Masukan app name: " app_name
 read -p "Masukan git url: " git_url
-
+### setup variables
 DEF_AVA=/etc/apache2/sites-available/default.conf
 AVAIL_CONF=/etc/apache2/sites-available/"${app_name}".conf
 APACHE_CONF=/etc/apache2/apache2.conf
 WWW_FOLD=/var/www/"${app_name}".conf
 
-if [[ -f "$DEF_AVA" ]]; then
-	sudo a2dissite default
-	sudo rm -rf $DEF_AVA
-	echo -e "\e[32m✅ Default available conf exist.. deleted.\e[0m"
-else
-	echo -e "\e[32m✅ Default available conf not exist.. skipped.\e[0m"
-fi
-
 if [[ -f "$AVAIL_CONF" ]]; then
 	sudo a2dissite $app_name
 	rm -rf "$AVAIL_CONF"
-	echo -e "\e[32m✅ ${app_name} conf avail exist.. deleted.\e[0m"
-	cp -r default.conf $AVAIL_CONF
+	echo -e "\e[32m✅ ${app_name} avail exist.. deleted.\e[0m"
+	cp -r $DEF_AVA $AVAIL_CONF
 	sudo a2ensite $app_name
-	echo -e "\e[32m✅ ${app_name} conf avail created.. ok.\e[0m"
+	echo -e "\e[32m✅ ${app_name} avail created.. ok.\e[0m"
 else
-	cp -r default.conf $AVAIL_CONF
+	cp -r $DEF_AVA $AVAIL_CONF
 	sudo a2ensite $app_name
-	echo -e "\e[32m✅ ${server_name} conf avail created.. ok.\e[0m"
+	echo -e "\e[32m✅ ${server_name} avail created.. ok.\e[0m"
 fi
 
 sed -i "s/your_domain/${server_name}/g" $AVAIL_CONF
@@ -65,3 +57,4 @@ else
 	echo -e "\e[31m❌ ERROR apache2 CONFIG FAILED ROLLBACK!\e[0m"
 	exit 1
 fi
+certbot --apache -d $server_name

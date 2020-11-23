@@ -58,7 +58,7 @@ sudo service ssh restart
 sudo addgroup devs
 echo -e "\e[32m✅ creating devs users...\e[0m"
 read -p "Masukkan username devs: " username
-read -p "Masukkan password devs: " password
+read -s "Masukkan password devs: " password
 sudo adduser --disabled-password --gecos "" $username
 if [[ $? == 0 ]]; then
 	echo "akasakaryu:${password}" | chpasswd
