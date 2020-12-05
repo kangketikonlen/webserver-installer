@@ -8,6 +8,7 @@ MARIADB_VER=10.5
 ### perl warning fix
 apt install sudo net-tools -y
 localedef -i en_US -f UTF-8 en_US.UTF-8
+sudo timedatectl set-timezone Asia/Jakarta
 cat >/etc/environment <<EOF
 LANG=en_US.utf-8
 LC_ALL=en_US.utf-8
