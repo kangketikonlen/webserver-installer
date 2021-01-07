@@ -77,7 +77,7 @@ git clone https://github.com/fathtech/maintenance.git /var/www/maintenance
 touch /etc/apache2/sites-available/default.conf
 cat >/etc/apache2/sites-available/default.conf <<EOF
 <VirtualHost *:80>
-	#ServerName your_domain
+	ServerName your_domain
 	ServerAdmin support@fathtech.co.id
 	DocumentRoot /var/www/maintenance
 

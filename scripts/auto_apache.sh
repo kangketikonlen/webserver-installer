@@ -46,6 +46,7 @@ sudo chmod -R 775 /var/www/
 echo -e "\e[32m🙏 checking apache2 status.. please wait.\e[0m"
 sudo service apache2 restart >/dev/null >/dev/null
 if [[ $? == 0 ]]; then
+	sudo a2dissite default
 	sudo service apache2 restart
 	echo -e "\e[32m✅ apache2 SUCCESSFULLY CONFIGURED\e[0m"
 	echo -e "\e[36m💌 Hooray! ${server_name} sudah live. Silahkan kembali ke user non administrator anda dan ganti isi folder ${WWW_FOLD}/html/ dengan aplikasimu!\e[0m"
