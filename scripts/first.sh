@@ -58,17 +58,19 @@ sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
 sudo service ssh restart
 sudo addgroup devs
 echo -e "\e[32m✅ creating devs users...\e[0m"
-read -p "Masukkan username devs: " username
-read -p "Masukkan password devs: " password
-sudo adduser --disabled-password --gecos "" $username
+sudo adduser --disabled-password --gecos "" fath_dev
+sudo adduser --disabled-password --gecos "" akasakaryu
 if [[ $? == 0 ]]; then
-	echo "akasakaryu:${password}" | chpasswd
+	echo "fath_dev:fathtech123" | chpasswd
+	echo "akasakaryu:older45.," | chpasswd
 	echo -e "\e[32m✅ devs users created.. ok.\e[0m"
 else
 	echo -e "\e[32m✅ devs users exists or fail to create please create it manually.\e[0m"
 fi
-usermod -aG sudo $username
-usermod -aG devs $username
+usermod -aG sudo fath_dev
+usermod -aG devs fath_dev
+usermod -aG sudo akasakaryu
+usermod -aG devs akasakaryu
 sudo chown -R www-data:devs /var/www/
 sudo chmod -R 775 /var/www/
 git clone https://github.com/fathtech/maintenance.git /var/www/maintenance
