@@ -7,7 +7,7 @@ read -p "Masukan git url: " git_url
 DEF_AVA=/etc/apache2/sites-available/default.conf
 AVAIL_CONF=/etc/apache2/sites-available/"${app_name}".conf
 APACHE_CONF=/etc/apache2/apache2.conf
-WWW_FOLD=/var/www/"${app_name}".conf
+WWW_FOLD=/var/www/${app_name}
 
 if [[ -f "$AVAIL_CONF" ]]; then
 	sudo a2dissite $app_name
