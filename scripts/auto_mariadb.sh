@@ -10,7 +10,7 @@ sudo service mysql restart
 echo -e "\e[32m🙏 restarting database server.. please wait.\e[0m"
 if [[ $? == 0 ]]; then
 	echo -e "\e[32m✨ DATABASE SUCCESSFULLY CONFIGURED\e[0m"
-	Q1="CREATE USER 'fath_dev'@'%' IDENTIFIED BY 'older45.,';"
+	Q1="CREATE USER 'fath_dev'@'%' IDENTIFIED BY 'fathtech123';"
 	Q2="GRANT ALL PRIVILEGES ON *.* TO 'fath_dev'@'%';"
 	Q3="FLUSH PRIVILEGES;"
 	QUERYS="${Q1}${Q2}${Q3}"
