@@ -28,17 +28,17 @@ sed -i "s/maintenance/${app_name}/g" $AVAIL_CONF
 if [[ -f "$WWW_FOLD" ]]; then
 	rm -rf "$WWW_FOLD"
 	echo -e "\e[32m✅ ${server_name} root folder exist.. deleted.\e[0m"
-	mkdir -p "$WWW_FOLD"
+	mkdir -p "$WWW_FOLD/{html,repositori}"
 	echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
-	mkdir -p "$WWW_FOLD"
+	mkdir -p "$WWW_FOLD/{html,repositori}"
 	echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
-	git clone ${git_url} ${WWW_FOLD}
+	git clone ${git_url} ${WWW_FOLD}/repositori/
 else
-	mkdir -p "$WWW_FOLD"
+	mkdir -p "$WWW_FOLD/{html,repositori}"
 	echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
-	mkdir -p "$WWW_FOLD"/
+	mkdir -p "$WWW_FOLD/{html,repositori}"/
 	echo -e "\e[32m✅ ${server_name} root folder created.. ok.\e[0m"
-	git clone ${git_url} ${WWW_FOLD}
+	git clone ${git_url} ${WWW_FOLD}/repositori/
 fi
 echo -e "\e[32m✅ change root folder ownership.. ok.\e[0m"
 sudo chown -R www-data:devs /var/www/
