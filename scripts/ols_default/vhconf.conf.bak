@@ -1,0 +1,82 @@
+docRoot                   /var/www/cbt/html
+vhDomain                  cbt.sman2cirebon.fathtech.co.id
+vhAliases                 cbt.sman2cirebon.fathtech.co.id
+enableGzip                1
+enableBr                  1
+
+errorlog $VH_ROOT/logs/error_log {
+  useServer               1
+  logLevel                ERROR
+  rollingSize             10M
+  keepDays                3
+}
+
+accesslog $VH_ROOT/logs/access_log {
+  useServer               0
+  logHeaders              7
+  rollingSize             10M
+  keepDays                3
+  compressArchive         0
+}
+
+index  {
+  useServer               1
+  indexFiles              index.php, index.html
+}
+
+scripthandler  {
+  add                     lsapi:lsphp73 php
+}
+
+expires  {
+  enableExpires           1
+  expiresDefault          A604800
+  expiresByType           image/*=A604800, text/css=A604800, application/x-javascript=A604800, application/javascript=A604800, font/*=A604800, application/x-font-ttf=A604800
+}
+
+accessControl  {
+  allow                   *
+}
+
+extprocessor lsphp73 {
+  type                    lsapi
+  address                 uds://tmp/lshttpd/lsphp73.sock
+  maxConns                300
+  env                     PHP_LSAPI_CHILDREN=300
+  initTimeout             60
+  retryTimeout            0
+  persistConn             1
+  respBuffer              0
+  autoStart               2
+  path                    $SERVER_ROOT/lsphp73/bin/lsphp
+  backlog                 100
+  instances               1
+}
+
+rewrite  {
+  enable                  1
+  autoLoadHtaccess        1
+}
+
+module cache {
+enableCache                      0
+enablePrivateCache               0
+checkPublicCache                 1
+checkPrivateCache                1
+qsCache                          1
+reqCookieCache                   1
+ignoreReqCacheCtrl               1
+ignoreRespCacheCtrl              0
+respCookieCache                  1
+expireInSeconds                  3600
+privateExpireInSeconds           3600
+maxStaleAge                      200
+maxCacheObjSize                  10000000
+storagepath                      cachedata
+noCacheDomain
+noCacheUrl
+no-vary                          0
+addEtag                          0
+  ls_enabled              1
+}
+

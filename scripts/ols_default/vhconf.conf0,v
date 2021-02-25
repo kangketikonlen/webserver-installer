@@ -1,0 +1,235 @@
+head	1.9;
+access;
+symbols;
+locks
+	root:1.9; strict;
+comment	@# @;
+
+
+1.9
+date	2021.02.23.05.19.28;	author root;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2021.02.23.05.11.19;	author root;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2021.02.23.05.06.24;	author root;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2021.02.22.08.24.53;	author root;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2021.02.22.08.10.58;	author root;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2021.02.22.03.30.51;	author root;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2021.02.22.03.30.12;	author root;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2021.02.22.03.29.33;	author root;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2021.02.22.03.28.28;	author root;	state Exp;
+branches;
+next	;
+
+
+desc
+@/usr/local/lsws/conf/vhosts/cbt/vhconf.conf0
+@
+
+
+1.9
+log
+@Update
+@
+text
+@docRoot                   /var/www/cbt/html
+vhDomain                  cbt.sman2cirebon.fathtech.co.id
+vhAliases                 cbt.sman2cirebon.fathtech.co.id
+adminEmails               support@@fathtech.co.id
+enableGzip                1
+enableBr                  1
+
+errorlog $VH_ROOT/logs/error_log {
+  useServer               1
+  logLevel                ERROR
+  rollingSize             10M
+  keepDays                3
+}
+
+accesslog $VH_ROOT/logs/access_log {
+  useServer               0
+  logHeaders              7
+  rollingSize             10M
+  keepDays                3
+  compressArchive         0
+}
+
+index  {
+  useServer               1
+  indexFiles              index.php, index.html
+}
+
+scripthandler  {
+  add                     lsapi:lsphp73 php
+}
+
+expires  {
+  enableExpires           1
+  expiresDefault          A604800
+  expiresByType           image/*=A604800, text/css=A604800, application/x-javascript=A604800, application/javascript=A604800, font/*=A604800, application/x-font-ttf=A604800
+}
+
+accessControl  {
+  allow                   *
+}
+
+extprocessor lsphp73 {
+  type                    lsapi
+  address                 uds://tmp/lshttpd/lsphp73.sock
+  maxConns                300
+  env                     PHP_LSAPI_CHILDREN=300
+  initTimeout             60
+  retryTimeout            0
+  persistConn             1
+  respBuffer              0
+  autoStart               2
+  path                    $SERVER_ROOT/lsphp73/bin/lsphp
+  backlog                 100
+  instances               1
+}
+
+rewrite  {
+  enable                  1
+  autoLoadHtaccess        1
+}
+
+module cache {
+enableCache                      0
+enablePrivateCache               0
+checkPublicCache                 1
+checkPrivateCache                1
+qsCache                          1
+reqCookieCache                   1
+ignoreReqCacheCtrl               1
+ignoreRespCacheCtrl              0
+respCookieCache                  1
+expireInSeconds                  3600
+privateExpireInSeconds           3600
+maxStaleAge                      200
+maxCacheObjSize                  10000000
+storagepath                      cachedata
+noCacheDomain
+noCacheUrl
+no-vary                          0
+addEtag                          0
+  ls_enabled              1
+}
+
+@
+
+
+1.8
+log
+@Update
+@
+text
+@d4 1
+@
+
+
+1.7
+log
+@Update
+@
+text
+@d27 4
+d41 15
+d59 22
+@
+
+
+1.6
+log
+@Update
+@
+text
+@d6 30
+a35 2
+enableIpGeo               1
+cgroups                   2
+@
+
+
+1.5
+log
+@Update
+@
+text
+@d4 4
+a7 1
+cgroups                   1
+@
+
+
+1.4
+log
+@Update
+@
+text
+@d4 1
+a4 4
+enableGzip                1
+enableBr                  1
+enableIpGeo               1
+cgroups                   2
+@
+
+
+1.3
+log
+@Update
+@
+text
+@d4 4
+@
+
+
+1.2
+log
+@Update
+@
+text
+@d5 5
+@
+
+
+1.1
+log
+@Update
+@
+text
+@d1 1
+a1 1
+docRoot                   /var/www/maintenance
+d4 1
+@

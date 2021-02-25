@@ -1,0 +1,102 @@
+docroot /var/www/cbt/html
+vhdomain cbt.sman2cirebon.fathtech.co.id
+vhaliases cbt.sman2cirebon.fathtech.co.id
+adminemails support@fathtech.co.id
+enablegzip 1
+enablebr 1
+
+errorlog $VH_ROOT/logs/error_log {
+    useserver 1
+    loglevel ERROR
+    rollingsize 10M
+    keepdays 3
+}
+
+accesslog $VH_ROOT/logs/access_log {
+    useserver 0
+    logheaders 7
+    rollingsize 10M
+    keepdays 3
+    compressarchive 0
+}
+
+index  {
+    useserver 1
+    indexfiles index.php, index.html
+}
+
+scripthandler  {
+    add lsapi:lsphp73 php
+}
+
+expires  {
+    enableexpires 1
+    expiresdefault A604800
+    expiresbytype image/*=A604800, text/css=A604800, application/x-javascript=A604800, application/javascript=A604800, font/*=A604800, application/x-font-ttf=A604800
+}
+
+accesscontrol  {
+    allow *
+}
+
+extprocessor lsphp73 {
+    type lsapi
+    autostart 2
+    address uds://tmp/lshttpd/lsphp73.sock
+    maxconns 300
+    env PHP_LSAPI_CHILDREN=300
+    inittimeout 60
+    retrytimeout 0
+    persistconn 1
+    respbuffer 0
+    path $SERVER_ROOT/lsphp73/bin/lsphp
+    backlog 100
+    instances 1
+}
+
+rewrite  {
+    enable 1
+    autoloadhtaccess 1
+}
+
+module cache {
+    param <<<MY_END
+enablecache 0
+enableprivatecache 0
+checkpubliccache 1
+checkprivatecache 1
+qscache 1
+reqcookiecache 1
+ignorereqcachectrl 1
+ignorerespcachectrl 0
+respcookiecache 1
+expireinseconds 3600
+privateexpireinseconds 3600
+maxstaleage 200
+maxcacheobjsize 10000000
+storagepath cachedata
+nocachedomain 
+nocacheurl 
+no-vary 0
+addetag 0
+    MY_END
+    unknownkeywords enablecache 0
+    unknownkeywords enableprivatecache 0
+    unknownkeywords checkpubliccache 1
+    unknownkeywords checkprivatecache 1
+    unknownkeywords qscache 1
+    unknownkeywords reqcookiecache 1
+    unknownkeywords ignorereqcachectrl 1
+    unknownkeywords ignorerespcachectrl 0
+    unknownkeywords respcookiecache 1
+    unknownkeywords addetag 0
+    unknownkeywords expireinseconds 3600
+    unknownkeywords privateexpireinseconds 3600
+    unknownkeywords maxstaleage 200
+    unknownkeywords maxcacheobjsize 10000000
+    unknownkeywords storagepath cachedata
+    unknownkeywords nocachedomain 
+    unknownkeywords nocacheurl 
+    unknownkeywords no-vary 0
+    ls_enabled 1
+}

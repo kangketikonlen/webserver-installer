@@ -25,8 +25,11 @@ echo 1 >/proc/sys/net/ipv6/conf/all/disable_ipv6
 ### add additional sources.
 echo 'deb http://ftp.debian.org/debian stretch-backports main' >>/etc/apt/sources.list
 sudo apt update && sudo apt upgrade -y
-### installing apache2.
-sudo apt install apache2 -y
+### installing openlitespeed.
+wget -c http://rpms.litespeedtech.com/debian/enable_lst_debain_repo.sh
+sudo bash enable_lst_debain_repo.sh
+sudo apt install openlitespeed -y
+sudo rm -rf *.sh
 ### installing lattest PHP.
 sudo apt -y install lsb-release apt-transport-https ca-certificates
 sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
@@ -67,6 +70,7 @@ if [[ $? == 0 ]]; then
 else
 	echo -e "\e[32m✅ devs users exists or fail to create please create it manually.\e[0m"
 fi
+
 usermod -aG sudo fath_dev
 usermod -aG devs fath_dev
 usermod -aG sudo akasakaryu
@@ -74,16 +78,4 @@ usermod -aG devs akasakaryu
 sudo chown -R www-data:devs /var/www/
 sudo chmod -R 775 /var/www/
 git clone https://github.com/fathtech/maintenance.git /var/www/maintenance
-touch /etc/apache2/sites-available/default.conf
-cat >/etc/apache2/sites-available/default.conf <<EOF
-<VirtualHost *:80>
-	ServerName your_domain
-	ServerAdmin support@fathtech.co.id
-	DocumentRoot /var/www/maintenance
-
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-EOF
-sudo a2ensite default.conf
-sudo service apache2 restart
+sudo /usr/local/lsws/admin/misc/admpass.sh
